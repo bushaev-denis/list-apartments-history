@@ -37,7 +37,9 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: Install deps
-        run: pnpm install --frozen-lockfile
+        run: |
+          pnpm install --frozen-lockfile &&
+          pnpm i ts-node typescript -g
 
       - name: Run script
         run: ts-node index.ts
