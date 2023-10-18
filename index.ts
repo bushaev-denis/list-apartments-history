@@ -1,11 +1,11 @@
 import parseHTML from "node-html-parser";
 import { readFile, writeFile } from "fs/promises";
 import dayjs from "dayjs";
-import dotenv from "dotenv";
-dotenv.config();
 
 export async function getCurrencyRates() {
-  const res = await fetch(process.env.CURRENCIES_URL!);
+  const res = await fetch(
+    "https://raw.githubusercontent.com/fawazahmed0/currency-api/1/latest/currencies/usd.json"
+  );
 
   if (res.status !== 200) {
     throw new Error(`Currencies error: ${await res.text()}`);
@@ -59,7 +59,7 @@ async function parseItems(): Promise<Array<Item>> {
   for (const district of districts) {
     // NOTE: iterate by pages (maximum is 250)
     for (let page = 1; page <= 250; page++) {
-      const url = `${process.env.LIST_URL}/ru/category/56/${page}?type=1&n=${district}`;
+      const url = `https://www.list.am/ru/category/56/${page}?type=1&n=${district}`;
 
       const pageRes = await fetch(url);
       if (pageRes.status !== 200) {
