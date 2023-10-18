@@ -170,19 +170,19 @@ async function saveData(items: Array<Item>) {
       .sort((a, b) => a - b);
 
     // NOTE: avg
-    let avg = (() => {
+    let median = (() => {
       if (arr.length === 0) return 0;
       const mid = Math.floor(arr.length / 2);
       return arr.length % 2 === 0 ? (arr[mid - 1] + arr[mid]) / 2 : arr[mid];
     })();
-    avg = +avg.toFixed(2);
+    median = +median.toFixed(2);
 
     // NOTE: median
-    let median = (() => {
+    let avg = (() => {
       if (arr.length === 0) return 0;
       return arr.reduce((p, c) => p + c, 0) / arr.length;
     })();
-    median = +median.toFixed(2);
+    avg = +avg.toFixed(2);
 
     const date = dayjs().format("YYYY-MM-DD");
     const item = result[district].find((i) => i[0] === date);
