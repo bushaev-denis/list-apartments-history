@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@master
         with:
-          persist-credentials: true
+          persist-credentials: false
           fetch-depth: 0
 
       - name: Install Node.js
