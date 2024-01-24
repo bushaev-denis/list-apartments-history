@@ -40,6 +40,10 @@ export interface Item {
   area: number;
 }
 
+async function sleep(ms: number) {
+  return new Promise((s) => setTimeout(s, ms));
+}
+
 async function parseItems(): Promise<Array<Item>> {
   const cacheFile = "./cache.json";
 
@@ -59,9 +63,15 @@ async function parseItems(): Promise<Array<Item>> {
   for (const district of districts) {
     // NOTE: iterate by pages (maximum is 250)
     for (let page = 1; page <= 250; page++) {
+      console.log(`Parsing page ${page} for district ${district}`);
       const url = `https://www.list.am/ru/category/56/${page}?type=1&n=${district}`;
 
       const pageRes = await fetch(url);
+      if (pageRes.status === 429) {
+        await sleep(1000);
+        page--;
+        continue;
+      }
       if (pageRes.status !== 200) {
         console.log("page error", pageRes.status, await pageRes.text());
         break;
