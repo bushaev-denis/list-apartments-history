@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 
 export async function getCurrencyRates() {
   const res = await fetch(
-    "https://raw.githubusercontent.com/fawazahmed0/currency-api/1/latest/currencies/usd.json"
+    "https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json"
   );
 
   if (res.status !== 200) {
